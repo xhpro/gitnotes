@@ -1,0 +1,78 @@
+Git:
+mkdir  projectname  //创建一个目录
+ll  //显示当前目录的信息
+ls //显示当前目录的位置
+pwd  //显示当前目录
+git init  //把当前目录设定为Git管理的仓库(repository)
+git add  //添加文件到Git管理仓库（可以一次添加多个文件之后一次性提交）
+git commit -m "xxx"  //提交文件并说明此次修改的内容
+git log  //显示由近到远的提交日志
+git log --pretty=oneline  //如果嫌日志太多，精简输出
+git reset --hard HEAD^  //退回到上一个版本
+cat xxx  //查看当前文档的版本号
+git reset  --hard 版本号前几位  //回到某个版本号
+git reflog  //查看所有的版本操作，有版本号
+git checkout -- xxx  //撤销修改（如果文件放到暂存区并做了修改，回到刚放到暂存区状态；如果还没有添加到暂存区，回到修改前状态）
+git reset HEAD xxx //把暂存区的文件返回到工作区，返回到提交前的状态
+2个选择--确实要删除这个文件
+rm xxx  //删除某个文件
+git rm xxx //确认删除，从版本库中删掉  git commit -m ""  再次注释
+--不想删除，删错了
+git checkout -- xxx
+
+
+ssh-keygen -t rsa -C "Email" //生成SSH Key    id_rsa为私钥  id_rsa.pub为公钥
+git remote rm origin  //fatal: remote origin already exists. 报错的解决方法  先删除origin
+
+
+git remote add origin xxxx //关联远程gitHub 库
+git push -u origin master  //第一次推送master分支的所有内容
+git push origin master  //后续推送
+git clone xxx  //克隆远程库
+
+
+git checkout  -b dev  //创建dev分支并其切换到dev（git branch dev     git checkout dev）
+git branch  //列出所有分支，当前分支前面会有一个*号
+git merge dev  //合并dev分支到当前分支
+git branch -d dev  //删除分支dev
+
+
+git log --graph --pretty=oneline --abbrev-commit  //查看分支情况，此方法比较形象
+git merge --no-ff -m "shuoming" dev  //用普通方式把dev分支合并到master上来
+
+
+git stash  //把当前分支“储藏”起来，等以后恢复分支后继续工作
+git stash list  //查看隐藏的分支--工作区
+git stash apply  //恢复隐藏的分支  此方法 stash不删除  ，需要  git stash drop 来删除
+git stash pop  //回去隐藏的分支  此方法会把stash删除
+git stash apply stash@{0}  //多次stash   用git stash list 查看 然后恢复到指定的stash
+
+
+git remote //查看远程库的信息   
+git remote -v  //查看远程库的详细信息
+git fetch origin master //从远程的origin仓库的master分支下载代码到本地的origin master
+git log -p master.. origin/mster  //比较本地的仓库和远程仓库的区别
+
+
+git tag xxx  //为当前版本达xxx标签
+git tag  //查看tag
+git tag -a xxx -m "" banbenhao  //创建带有说明的标签
+git tag -s xxx -m "" banbenhao  //创建带PGP签名的标签
+git tag -d xxx  //删除某个标签
+git push origin xxx  //推送某个标签
+git push origin --tags  //推送所有标签
+
+
+git tag -d xxx  // 删除某个标签（本地）
+git push origin :refs/tags/xxx  //删除某个远程库标签
+ 
+
+ 流程：
+ 1.在GitH上创建项目；
+ 2.在本地  git clone xxx   到本地；
+ 3. 编辑项目；
+ 4.git add xx;
+ 5.git commit -m "";
+ 6.git push origin master;
+ Bug:如果GitHub的remote上已经有了文件，会出现错误，
+     此时应该pull一下  git pull origin master,然后git push origin master;
